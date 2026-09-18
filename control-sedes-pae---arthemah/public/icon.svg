@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F3863" />
+      <stop offset="100%" stop-color="#0A2342" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF" />
+      <stop offset="100%" stop-color="#0D9488" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.3" />
+    </filter>
+  </defs>
+  
+  <!-- Rounded Base -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  
+  <!-- Subtle background ring -->
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#2563EB" stroke-width="6" opacity="0.35" />
+  
+  <!-- Institutional Shield / Clipboard Frame -->
+  <g filter="url(#shadow)">
+    <!-- Clipboard body -->
+    <rect x="116" y="110" width="280" height="320" rx="36" fill="#FFFFFF" />
+    
+    <!-- Top Clip bar -->
+    <rect x="186" y="80" width="140" height="50" rx="14" fill="#0F3863" />
+    <circle cx="256" cy="100" r="10" fill="#CCFBF1" />
+    
+    <!-- Central Iconography: Food Nourishment Bowl & Nutrition Leaf -->
+    <path d="M 166 280 C 166 345 346 345 346 280 Z" fill="url(#tealGrad)" />
+    <!-- Steam / Warmth curves -->
+    <path d="M 216 250 Q 226 230 216 210 Q 206 190 216 170" fill="none" stroke="#F59E0B" stroke-width="8" stroke-linecap="round" />
+    <path d="M 256 245 Q 266 225 256 205 Q 246 185 256 165" fill="none" stroke="#0D9488" stroke-width="8" stroke-linecap="round" />
+    <path d="M 296 250 Q 306 230 296 210 Q 286 190 296 170" fill="none" stroke="#F59E0B" stroke-width="8" stroke-linecap="round" />
+    
+    <!-- Checkmark Badge of PAE Quality -->
+    <circle cx="356" cy="370" r="42" fill="#16A34A" />
+    <path d="M 338 370 L 350 382 L 374 358" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  
+  <!-- Text Label "PAE" -->
+  <text x="256" y="465" text-anchor="middle" fill="#CCFBF1" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="28" letter-spacing="4">ARTHEMAH • PAE</text>
+</svg>

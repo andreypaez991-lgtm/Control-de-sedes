@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "Sede": {
+      "title": "Sede",
+      "description": "Sede educativa o comedor escolar adscrito al programa PAE",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Identificador numérico único de la sede"
+        },
+        "name": {
+          "type": "string",
+          "description": "Nombre de la institución o sede escolar",
+          "maxLength": 200
+        },
+        "manipuladoraName": {
+          "type": "string",
+          "description": "Nombre de la manipuladora de alimentos asignada",
+          "maxLength": 150
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indica si la sede está activa para recepción de reportes"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Fecha y hora ISO de la última actualización"
+        }
+      },
+      "required": ["id", "name", "manipuladoraName", "isActive"]
+    },
+    "Report": {
+      "title": "Report",
+      "description": "Reporte diario de entrega de raciones, minutas y actas escaneadas",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Identificador único secuencial del reporte"
+        },
+        "sedeId": {
+          "type": "number",
+          "description": "ID de la sede a la que corresponde el reporte"
+        },
+        "sedeName": {
+          "type": "string",
+          "description": "Nombre de la sede escolar",
+          "maxLength": 200
+        },
+        "manipuladoraName": {
+          "type": "string",
+          "description": "Nombre de la manipuladora que envía el reporte",
+          "maxLength": 150
+        },
+        "notes": {
+          "type": "string",
+          "description": "Texto del reporte manual o transcripción de IA",
+          "maxLength": 10000
+        },
+        "filterApplied": {
+          "type": "string",
+          "description": "Filtro tipo CamScanner aplicado al documento",
+          "maxLength": 50
+        },
+        "photoBase64": {
+          "type": "string",
+          "description": "Fotografía procesada en Base64 o URL del acta"
+        },
+        "syncStatus": {
+          "type": "string",
+          "description": "Estado de sincronización en la plataforma",
+          "enum": ["SYNCED", "PENDING"]
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Timestamp Unix de creación del reporte"
+        },
+        "syncedAt": {
+          "type": "number",
+          "description": "Timestamp Unix de sincronización con la nube"
+        },
+        "transcriptionByAI": {
+          "type": "boolean",
+          "description": "Indica si el reporte fue transcrito con Arthemah Visión"
+        },
+        "auditStatus": {
+          "type": "string",
+          "description": "Resultado de auditoría visual de sellos y firmas"
+        }
+      },
+      "required": ["id", "sedeId", "sedeName", "manipuladoraName", "syncStatus", "createdAt"]
+    },
+    "AppConfig": {
+      "title": "AppConfig",
+      "description": "Configuración global de administración y seguridad del sistema",
+      "type": "object",
+      "properties": {
+        "adminPin": {
+          "type": "string",
+          "description": "PIN de acceso administrativo de 4 dígitos",
+          "maxLength": 8
+        },
+        "appName": {
+          "type": "string",
+          "description": "Nombre de la plataforma institucional",
+          "maxLength": 100
+        },
+        "lastSyncTimestamp": {
+          "type": "number",
+          "description": "Timestamp de última sincronización general"
+        }
+      },
+      "required": ["adminPin", "appName"]
+    }
+  },
+  "firestore": {
+    "/sedes/{sedeId}": {
+      "schema": "Sede",
+      "description": "Colección de sedes educativas registradas en el PAE"
+    },
+    "/reports/{reportId}": {
+      "schema": "Report",
+      "description": "Colección de reportes de raciones y planillas escaneadas"
+    },
+    "/config/{configId}": {
+      "schema": "AppConfig",
+      "description": "Parámetros globales y PIN administrativo"
+    }
+  }
+}

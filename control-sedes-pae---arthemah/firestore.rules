@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidSede(data) {
+      return data.keys().hasAll(['id', 'name', 'manipuladoraName', 'isActive'])
+        && data.id is number
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 200
+        && data.manipuladoraName is string && data.manipuladoraName.size() <= 150
+        && data.isActive is bool;
+    }
+
+    function isValidReport(data) {
+      return data.keys().hasAll(['id', 'sedeId', 'sedeName', 'manipuladoraName', 'syncStatus', 'createdAt'])
+        && data.id is number
+        && data.sedeId is number
+        && data.sedeName is string && data.sedeName.size() <= 200
+        && data.manipuladoraName is string && data.manipuladoraName.size() <= 150
+        && data.syncStatus in ['SYNCED', 'PENDING']
+        && data.createdAt is number;
+    }
+
+    // Sedes collection
+    match /sedes/{sedeId} {
+      allow read: if true;
+      allow create, update: if isValidId(sedeId) && isValidSede(request.resource.data);
+      allow delete: if isValidId(sedeId);
+    }
+
+    // Reports collection
+    match /reports/{reportId} {
+      allow read: if true;
+      allow create, update: if isValidId(reportId) && isValidReport(request.resource.data);
+      allow delete: if isValidId(reportId);
+    }
+
+    // Global configuration
+    match /config/{configId} {
+      allow read: if true;
+      allow write: if isValidId(configId) && request.resource.data.adminPin is string;
+    }
+  }
+}

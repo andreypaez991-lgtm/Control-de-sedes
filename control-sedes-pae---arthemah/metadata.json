@@ -1,0 +1,6 @@
+{
+  "name": "Control Sedes PAE - Arthemah",
+  "description": "Aplicación Web Progresiva para el control de sedes, escaneo inteligente de planillas con filtros tipo CamScanner, transcripción con IA y funcionamiento 100% offline para el Programa de Alimentación Escolar (PAE).",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
